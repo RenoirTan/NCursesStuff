@@ -12,6 +12,7 @@ configure_file(${config_folder}/config.h.in ${config_folder}/config.h)
 
 include_directories(
     ${public_include_dir}
+    ${ncurses_INCLUDE_DIRS}
 )
 
 add_subdirectory(src)

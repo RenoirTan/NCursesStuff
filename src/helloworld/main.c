@@ -1,7 +1,12 @@
 #include <stdio.h>
+#include <ncurses.h>
 
 
 int main(int argc, char **argv) {
-    printf("Hello world\n");
+    initscr();
+    printw("Hello world");
+    refresh();
+    getch();
+    endwin();
     return 0;
 }
