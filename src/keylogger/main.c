@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
     printw("Keylogger. Press F4 to end.\n");
     int32_t count = main_loop(stdscr);
 
+    clear();
     printw("Press any key to exit.");
     refresh();
     getch();
