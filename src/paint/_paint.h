@@ -26,6 +26,8 @@ typedef enum penstate_t {
     PEN_UP = 0
 } penstate_t;
 
+void init_empty_window(WINDOW *window);
+
 #   ifdef __cplusplus
 }
 #   endif

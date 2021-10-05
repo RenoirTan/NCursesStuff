@@ -11,16 +11,14 @@ int main_loop(WINDOW *window) {
     getmaxyx(window, rows, columns);
     int x = 0, y = 0;
     int ch;
-    int underneath = winch(window);
     bool moved = false;
     penstate_t pen = PEN_UP;
 
+    init_empty_window(window);
     wmove(window, y, x);
 
     while ((ch = getch()) != EXIT_APP) {
         moved = false;
-        underneath = winch(window);
-        waddch(window, CURSOR);
 
         switch (ch) {
             case MOVE_UP:
@@ -56,15 +54,24 @@ int main_loop(WINDOW *window) {
                 break;
         }
 
+        wmove(window, y, x);
         if (pen == PEN_DOWN) {
-            underneath = FILLED;
-        }
-        if (moved) {
-            waddch(window, underneath);
-            wmove(window, y, x);
+            wdelch(window);
+            winsch(window, FILLED);
         }
 
         wrefresh(window);
     }
     return 0;
+}
+
+void init_empty_window(WINDOW *window) {
+    int rows, columns;
+    getmaxyx(window, rows, columns);
+    int x = 0, y = 0;
+    for (x = 0; x < columns; ++x) {
+        for (y = 0; y < rows; ++y) {
+            mvwaddch(window, y, x, UNFILLED);
+        }
+    }
 }
